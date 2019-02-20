@@ -117,14 +117,14 @@ class Data_Handler():
             while True:                                                 # nested while loop that runs for the timeout mins specified above.
 
                 q_data = kismet_queue.get()                             # Get data from the queue. The data is 1 client. (mac, signal_dbm, conn_type, date, time, host_name)
-                mac_key = q_data[0]                          			# Split the mac address so we can use the mac address as a index address for the dictionary
+                mac_key = q_data[0]                          		# Split the mac address so we can use the mac address as a index address for the dictionary
 
                 d[mac_key] = q_data                                 	# Set the mac index address value equal to the queue data which contains the rest of the information on that client
 
                 if(time.time() >= time_window):                         # if it has been X mins put the the mac_array on the SQL queue
 
                     for item in d:                                      # Loop through each item in the dictionary. each item is 1 clients data.
-                        split = d[item]                      			# Split the data for each client so we can append the data to the mac_array as a tuple.
+                        split = d[item]                      		# Split the data for each client so we can append the data to the mac_array as a tuple.
                         mac_array.append((split[0], split[1], split[2], split[3]))      # append it.
 			 
                     break                                               # Break out of the nested while loop. This will allow the main while loop to put the data to the sql_queue
